@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>给刘红瑾小可爱的道歉信💖</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #ffb3ba, #ffdfba);
+            font-family: -apple-system, 'Comic Sans MS', cursive;
+            text-align: center;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(255, 119, 168, 0.2);
+            max-width: 90%;
+            margin: 20px auto;
+            box-sizing: border-box;
+            transform: translateZ(0);
+        }
+
+        h1 {
+            color: #ff69b4;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px #fff;
+            margin: 15px 0;
+        }
+
+        .bear {
+            font-size: 4rem;
+            margin: 15px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .message {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #666;
+            padding: 0 10px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            font-size: 1rem;
+            padding: 12px;
+            margin: 15px auto;
+            border: 2px solid #ff69b4;
+            border-radius: 25px;
+            display: block;
+            -webkit-appearance: none;
+        }
+
+        button {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 80%;
+            max-width: 250px;
+            touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        button:active {
+            transform: scale(0.95);
+            background: #ff1493;
+        }
+
+        #secretMessage {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.6s ease;
+            will-change: transform;
+        }
+
+        #secretMessage.show {
+            opacity: 1;
+            max-height: 300px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .hearts {
+            position: fixed;
+            top: -20px;
+            animation: fall linear forwards;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(120vh) rotate(360deg); }
+        }
+
+        @media (orientation: landscape) {
+            .container {
+                max-width: 60%;
+            }
+            .bear {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bear">🐻❄️</div>
+        <h1>亲爱的刘红瑾小宝贝💝</h1>
+        
+        <div class="message">
+            <p>我知道我变成大笨熊啦🐾</p>
+            <p>不小心惹你生气是我的不对</p>
+            <p>你的笑容是我最爱的阳光☀️</p>
+            <p>原谅我好不好嘛～(っ˘з˘)っ</p>
+        </div>
+
+        <input type="text" id="name" placeholder="输入爱你解锁神秘惊喜" autocapitalize="off">
+        
+        <button id="submitBtn">点击接受道歉</button>
+        
+        <div id="secretMessage">
+            <p>🎉 你最好啦！去环球带你去吃：另加一个愿望满足</p>
+            <p>🍦冰淇淋 🍰黄油啤酒 🍩甜甜圈</p>
+            <p>任选三种！(๑>ᴗ<๑)</p>
+        </div>
+    </div>
+
+    <script>
+        // iOS兼容处理
+        let audioInitialized = false;
+        const secretMessage = document.getElementById('secretMessage');
+        const btn = document.getElementById('submitBtn');
+
+        // 爱心动画
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'hearts';
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 1 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        // 音频初始化
+        function initAudio() {
+            const bgm = new Audio('https://cdn.pixabay.com/download/audio/2021/08/09/audio_1a9a3bc8c8.mp3?filename=twinkle-twinkle-little-star-113058.mp3');
+            bgm.loop = true;
+            
+            // iOS音频激活
+            document.addEventListener('touchstart', () => {
+                bgm.play().then(() => {
+                    bgm.pause();
+                    audioInitialized = true;
+                });
+            }, { once: true });
+        }
+
+        // 主要功能
+        function showLove() {
+            const name = document.getElementById('name').value || "小可爱";
+            
+            // 显示隐藏内容
+            secretMessage.classList.add('show');
+            
+            // 触发重绘
+            secretMessage.style.display = 'block';
+            void secretMessage.offsetHeight;
+            
+            // 爱心雨
+            for(let i = 0; i < 20; i++) {
+                setTimeout(createHeart, i * 50);
+            }
+
+            // 播放音效
+            if(audioInitialized) {
+                const sfx = new Audio('https://cdn.pixabay.com/download/audio/2022/03/19/audio_bb6308d842.mp3?filename=magical-love-135665.mp3');
+                sfx.play();
+            }
+
+            // 按钮反馈
+            btn.textContent = `谢谢${name}小天使！💐`;
+            btn.style.pointerEvents = 'none';
+            setTimeout(() => btn.style.pointerEvents = 'auto', 1000);
+
+            // iOS震动反馈
+            if(typeof navigator.vibrate === 'function') {
+                navigator.vibrate([30, 50, 30]);
+            }
+        }
+
+        // 事件绑定
+        function addEvent(element, event, handler) {
+            element.addEventListener(event, handler, false);
+            element.addEventListener(event, handler, { passive: false });
+        }
+
+        // 初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            initAudio();
+            
+            // 兼容iOS点击事件
+            addEvent(btn, 'touchstart', (e) => {
+                e.preventDefault();
+                showLove();
+            });
+            addEvent(btn, 'click', showLove);
+
+            // 输入框优化
+            const input = document.getElementById('name');
+            input.addEventListener('focus', () => {
+                window.scrollTo({
+                    top: input.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
